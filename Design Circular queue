@@ -1,0 +1,70 @@
+class MyCircularQueue {
+    Queue<Integer> qi;
+    int fr = -1;
+    int ls = -1;
+    int point;
+    int ind = 1;
+    public MyCircularQueue(int k) {
+        point = k;
+        qi = new LinkedList<>();
+    }
+    
+    public boolean enQueue(int value) {
+        if(ind > point){
+            return false;
+        }
+        if(ind == 1){
+            fr = value;
+        }
+        ls =value;
+        ind++;
+        qi.add(value);
+        return true;
+    }
+    
+    public boolean deQueue() {
+        if(qi.size()==0){
+            ls=-1;
+            fr = -1;
+            return false;
+        }
+        qi.poll();
+        ind--;
+        if(qi.size()==0){
+            ls = -1;
+            fr = -1;
+        }
+        else{fr = qi.peek();}
+        return true;
+    }
+    
+    public int Front() {
+        return fr;
+    }
+    
+    public int Rear() {
+        return ls;
+    }
+    
+    public boolean isEmpty() {
+        return qi.isEmpty();
+    }
+    
+    public boolean isFull() {
+        if(point<ind){
+            return true;
+        }
+        return false;
+    }
+}
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue obj = new MyCircularQueue(k);
+ * boolean param_1 = obj.enQueue(value);
+ * boolean param_2 = obj.deQueue();
+ * int param_3 = obj.Front();
+ * int param_4 = obj.Rear();
+ * boolean param_5 = obj.isEmpty();
+ * boolean param_6 = obj.isFull();
+ */
