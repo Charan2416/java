@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class AntMoves {
+
+   
+    public static int countReturns(int[] A) {
+        int position = 0;
+        int count = 0;
+
+        for (int move : A) {
+            position += move;
+            if (position == 0) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the ant's moves as space-separated 1 and -1 (e.g., 1 -1 1 -1):");
+        String[] input = sc.nextLine().trim().split("\\s+");
+
+        int[] moves = new int[input.length];
+        for (int i = 0; i < input.length; i++) {
+            try {
+                moves[i] = Integer.parseInt(input[i]);
+                if (moves[i] != 1 && moves[i] != -1) {
+                    System.out.println("Invalid move detected. Only 1 and -1 are allowed.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input: '" + input[i] + "' is not a valid number.");
+                return;
+            }
+        }
+
+        int result = countReturns(moves);
+        System.out.println("The ant returns to the original position " + result + " times.");
+    }
+}
